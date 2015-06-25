@@ -116,6 +116,7 @@ platform_check_image() {
 	wr6202 |\
 	wr8305rt |\
 	wrtnode |\
+	edutech |\
 	wt1520 |\
 	wt3020 |\
 	x5 |\

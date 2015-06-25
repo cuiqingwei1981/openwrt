@@ -388,6 +388,9 @@ ramips_board_detect() {
 	*"WRTNODE")
 		name="wrtnode"
 		;;
+	*"EDUTECH")
+		name="edutech"
+		;;
 	*"Wansview NCS601W")
 		name="ncs601w"
 		;;
