@@ -1,0 +1,74 @@
+Index: target/linux/ramips/base-files/etc/board.d/01_leds
+===================================================================
+--- target/linux/ramips/base-files/etc/board.d/01_leds	(revision 46060)
++++ target/linux/ramips/base-files/etc/board.d/01_leds	(working copy)
+@@ -258,6 +258,11 @@
+ 		set_usb_led "lenovo:blue:usb"
+ 		set_wifi_led "lenovo:blue:wifi"
+ 		;;
++	edutech)
++		ucidef_set_led_default "power" "power" "edutech:blue:power" "1"
++		ucidef_set_led_netdev "edutech:blue:internet" "eth0.2"
++		set_wifi_led "edutech:blue:wifi"
++		;;
+ 	zte-q7)
+ 		set_wifi_led "zte:blue:status"
+ 		;;
+Index: target/linux/ramips/base-files/etc/board.d/02_network
+===================================================================
+--- target/linux/ramips/base-files/etc/board.d/02_network	(revision 46060)
++++ target/linux/ramips/base-files/etc/board.d/02_network	(working copy)
+@@ -167,6 +167,7 @@
+ 	hg255d | \
+ 	rt-n14u | \
+ 	wrtnode | \
++	wrtedutech | \
+ 	wt3020 | \
+ 	ur-326n4g | \
+ 	zbt-wa05)
+Index: target/linux/ramips/base-files/lib/ramips.sh
+===================================================================
+--- target/linux/ramips/base-files/lib/ramips.sh	(revision 46060)
++++ target/linux/ramips/base-files/lib/ramips.sh	(working copy)
+@@ -388,6 +388,9 @@
+ 	*"WRTNODE")
+ 		name="wrtnode"
+ 		;;
++	*"EDUTECH")
++		name="edutech"
++		;;
+ 	*"Wansview NCS601W")
+ 		name="ncs601w"
+ 		;;
+Index: target/linux/ramips/base-files/lib/upgrade/platform.sh
+===================================================================
+--- target/linux/ramips/base-files/lib/upgrade/platform.sh	(revision 46060)
++++ target/linux/ramips/base-files/lib/upgrade/platform.sh	(working copy)
+@@ -116,6 +116,7 @@
+ 	wr6202 |\
+ 	wr8305rt |\
+ 	wrtnode |\
++	edutech |\
+ 	wt1520 |\
+ 	wt3020 |\
+ 	x5 |\
+Index: target/linux/ramips/image/Makefile
+===================================================================
+--- target/linux/ramips/image/Makefile	(revision 46060)
++++ target/linux/ramips/image/Makefile	(working copy)
+@@ -874,6 +874,7 @@
+ Image/Build/Profile/RT-N14U=$(call BuildFirmware/Default8M/$(1),$(1),rt-n14u,RT-N14U)
+ Image/Build/Profile/WR8305RT=$(call BuildFirmware/Default8M/$(1),$(1),wr8305rt,WR8305RT)
+ Image/Build/Profile/WRTNODE=$(call BuildFirmware/Default16M/$(1),$(1),wrtnode,WRTNODE)
++Image/Build/Profile/EDUTECH=$(call BuildFirmware/Default8M/$(1),$(1),edutech,EDUTECH)
+ Image/Build/Profile/WT3020=$(call BuildFirmware/PorayDualSize/$(1),$(1),wt3020,WT3020)
+ Image/Build/Profile/XIAOMI-MIWIFI-MINI=$(call BuildFirmware/Default16M/$(1),$(1),xiaomi-miwifi-mini,XIAOMI-MIWIFI-MINI)
+ Image/Build/Profile/ZTE-Q7=$(call BuildFirmware/Default8M/$(1),$(1),zte-q7,ZTE-Q7)
+@@ -907,6 +908,7 @@
+ 	$(call Image/Build/Profile/RT-N14U,$(1))
+ 	$(call Image/Build/Profile/WR8305RT,$(1))
+ 	$(call Image/Build/Profile/WRTNODE,$(1))
++	$(call Image/Build/Profile/EDUTECH,$(1))
+ 	$(call Image/Build/Profile/WT3020,$(1))
+ 	$(call Image/Build/Profile/XIAOMI-MIWIFI-MINI,$(1))
+ 	$(call Image/Build/Profile/ZTE-Q7,$(1))
